@@ -1,0 +1,73 @@
+*{
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+}
+.side-bar{
+    min-width: 58px;
+    height: 100vh;
+    background-color: black;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    z-index: 20;
+    padding: 45px 0px;
+    position: fixed;
+    top: 0;
+    left: 0;
+}
+
+.upper-icons,.lower-icons{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 25px;
+    color: white;
+    font-size: 20px;
+}
+
+#home,#shop-bag,#cart,#favorite,#login,#user{
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+#home p,#shop-bag p,#cart p,#favorite p,#login p,#user p{
+    font-size: 10px;
+}
+#home:hover,#shop-bag:hover,#cart:hover,#favorite:hover,#login:hover,#user:hover{
+    color: rgb(254, 18, 144);
+    cursor: pointer;
+    
+}
+.upper-icons #cart .cart-pending-number{
+    width: 17px;
+    height: 15px;
+    font-size: 14px;
+    color: white;
+    background-color: rgb(235, 65, 184);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    border-radius: 9px 9px;
+    margin-left: 20px;
+    position: relative;
+    top:5px;
+    z-index: 1;
+}
+.upper-icons #favorite .fav-pending-number{
+    width: 17px;
+    height: 15px;
+    font-size: 14px;
+    color: white;
+    background-color: rgb(235, 65, 184);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    border-radius: 9px 9px;
+    margin-left: 20px;
+    position: relative;
+    top:5px;
+    z-index: 1;
+}
