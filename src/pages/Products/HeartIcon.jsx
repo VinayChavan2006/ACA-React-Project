@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 
-const HeartIcon = ({handleFavorites,removeFavorites}) => {
+const HeartIcon = ({handleFavorites}) => {
   const [isFavorite, setIsFavorite] = useState(false);
 
   const handleClick = (e) => {

@@ -1,20 +1,53 @@
-import React from "react";
+import React, { useRef, useState } from "react";
 import { FaShoppingCart } from "react-icons/fa";
 import ProductCard from "./Products/ProductCard";
 import HeartIcon from "./Products/HeartIcon";
 import  AllProducts  from "./Admin/AllProducts";
 import { Link, useOutletContext } from "react-router-dom";
 const Shop = () => {
-  const {cartItems,setCartItems} = useOutletContext()
-  
+  const {cartItems,setCartItems,favItems,setFavItems} = useOutletContext()
+  const [allProducts,setAllProducts] = useState(AllProducts)
+  // const [selectedCategories,setSelectedCategories] = useState([]);
+  function handleFilters(category){
+    
+    // let isSelectedCategory = selectedCategories.some((p)=>p===category)
+    // if(!isSelectedCategory){
+    //   selectedCategories.push(category);
+    // let categoryItems = allProducts.filter((p)=>p.category===category)
+    // setAllProducts(categoryItems)}
+    // else{
+    //    setSelectedCategories(selectedCategories.filter((p)=>p!==category))
+    // }
+    console.log(category)
+  }
+
   function handleAddToCart(e,id){
     e.stopPropagation()
     let product = AllProducts.find((p)=>p.id===id)
+    let isInCart = cartItems.some((p)=>p.item.id===id)
+    if(!isInCart){
+      setCartItems([...cartItems,{item:product,quantity:1}])
+    }
     
-    setCartItems([...cartItems,{item:product,quantity:1}])
     console.log(cartItems)
   }
   
+  const handleFavorites = (id)=>{  
+    let isFav = favItems.some((p)=>p.id===id)
+    if(isFav){
+      removeFavorites(id);
+    }
+    else{
+      let product = AllProducts.find((p)=>p.id===id)
+      setFavItems([...favItems,product])
+    }
+    
+    console.log(favItems)
+  }
+  const removeFavorites = (id)=>{
+    let product = favItems.filter((p)=>p.id!==id)
+    setFavItems(product)
+  }
   const categories = [
     "Phone",
     "Clothes",
@@ -51,9 +84,11 @@ const Shop = () => {
               <div className="mb-3">
                 <label className="flex items-center cursor-pointer bg-gray-800 p-2 rounded-md hover:bg-gray-700 hover:text-pink-500 transform hover:scale-x-105 transition-transform duration-200 ease-out">
                   <input
+                    onClick={()=>handleFilters(category)}
+                    
                     type="checkbox"
-                    id={`category-${category}`}
-                    name="category"
+                    
+                    name={category}
                     className="mr-2 h-5 w-5 text-pink-500 focus:ring-pink-500 border-gray-300"
                     defaultChecked=""
                   />
@@ -71,7 +106,7 @@ const Shop = () => {
                 <label className="flex items-center cursor-pointer bg-gray-800 p-2 rounded-md hover:bg-gray-700 hover:text-pink-500 transform hover:scale-x-105 transition-transform duration-200 ease-out">
                   <input
                     type="radio"
-                    id={`brand-${brand}`}
+                    id={`${brand}`}
                     name="brand"
                     className="mr-2 h-5 w-5 text-pink-500 focus:ring-pink-500 border-gray-300"
                     defaultChecked=""
@@ -104,7 +139,7 @@ const Shop = () => {
         <div className="flex flex-wrap gap-5 ">
 
 
-        {AllProducts.map((product,i)=> <div className="mb-4">
+        {allProducts.map((product,i)=> <div className="mb-4">
             <div className="w-[250px] h-[350px] relative bg-[#0D1F2D] rounded-lg shadow-lg dark:bg-gray-800 dark:border-gray-700 hover:shadow-xl transition-shadow duration-300">
               <section className="relative">
                 <Link
@@ -122,7 +157,7 @@ const Shop = () => {
                   />
                 </Link>
                 
-                <HeartIcon></HeartIcon>
+                <HeartIcon handleFavorites={()=>handleFavorites(product.id)}></HeartIcon>
               </section>
               <div className="p-5">
                 <div className="flex justify-between items-center mb-2">

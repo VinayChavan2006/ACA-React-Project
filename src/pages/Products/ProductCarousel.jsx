@@ -48,8 +48,11 @@ const ProductCarousel = () => {
   function handleCarouselCart(e,id){
     e.stopPropagation()
     let product = products.find((p)=>p.id===id)
+    let isInCart = cartItems.some((p)=>p.item.id===id)
+    if(!isInCart){
+      setCartItems([...cartItems,{item:product,quantity:1}])
+    }
     
-    setCartItems([...cartItems,{item:product,quantity:1}])
     console.log(cartItems)
   }
   

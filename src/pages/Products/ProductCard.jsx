@@ -10,11 +10,21 @@ const ProductCard = ({ product }) => {
   console.log("rendered ProductCard");
   function handleAddToCart(e){
     e.stopPropagation();
+    let isInCart = cartItems.some((p)=>p.item.id===product.id)
+    if(!isInCart){
     setCartItems([...cartItems,{item:product,quantity:1}])
+    }
   }
   const handleFavorites = (id)=>{  
-    let product = AllProducts.find((p)=>p.id===id)
-    setFavItems([...favItems,product])
+    let isFav = favItems.some((p)=>p.id===id)
+    if(isFav){
+      removeFavorites(id);
+    }
+    else{
+      let product = AllProducts.find((p)=>p.id===id)
+      setFavItems([...favItems,product])
+    }
+    
     console.log(favItems)
   }
   const removeFavorites = (id)=>{
@@ -33,7 +43,7 @@ const ProductCard = ({ product }) => {
             loading="lazy"
             style={{ borderRadius: "6px" }}
           />
-           <HeartIcon handleFavorites={()=>handleFavorites(product.id)} removeFavorites={()=>removeFavorites(product.id)}></HeartIcon>
+           <HeartIcon handleFavorites={()=>handleFavorites(product.id)}></HeartIcon>
           
           
           

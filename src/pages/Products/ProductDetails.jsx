@@ -9,13 +9,32 @@ const ProductDetails = () => {
   const [reviews,setReviews] = useState([{userName:'Vinay Chavan',description:'Nice Product',rating:5}])
   const navigate = useNavigate()
   const [selectedTab,setSelectedTab] = useState('comment');
-  const {cartItems,setCartItems} = useOutletContext()
+  const {cartItems,setCartItems,favItems,setFavItems} = useOutletContext()
   function handleAddToCart(e,id){
     e.stopPropagation()
     let product = AllProducts.find((p)=>p.id===id)
+    let isInCart = cartItems.some((p)=>p.item.id===id)
+    if(!isInCart){
+      setCartItems([...cartItems,{item:product,quantity:1}])
+    }
     
-    setCartItems([...cartItems,{item:product,quantity:1}])
     console.log(cartItems)
+  }
+  const handleFavorites = (id)=>{  
+    let isFav = favItems.some((p)=>p.id===id)
+    if(isFav){
+      removeFavorites(id);
+    }
+    else{
+      let product = AllProducts.find((p)=>p.id===id)
+      setFavItems([...favItems,product])
+    }
+    
+    console.log(favItems)
+  }
+  const removeFavorites = (id)=>{
+    let product = favItems.filter((p)=>p.id!==id)
+    setFavItems(product)
   }
 
   const params = useParams()
@@ -47,7 +66,7 @@ const ProductDetails = () => {
                 loading="lazy"
                 style={{ borderRadius: "6px" }}
               />
-              <HeartIcon></HeartIcon>
+              <HeartIcon handleFavorites={()=>handleFavorites(product.id)}></HeartIcon>
             </div>
           </div>
           <div className="flex flex-col p-6 w-2/5 justify-between">
