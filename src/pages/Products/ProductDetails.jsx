@@ -3,12 +3,21 @@ import ProductCard from "./ProductCard";
 import HeartIcon from "./HeartIcon";
 import AllProducts from "../Admin/AllProducts";
 import { FaArrowLeft, FaStar } from "react-icons/fa";
-import { useParams,useNavigate } from "react-router";
+import { useParams,useNavigate, useOutletContext } from "react-router";
 
 const ProductDetails = () => {
   const [reviews,setReviews] = useState([{userName:'Vinay Chavan',description:'Nice Product',rating:5}])
   const navigate = useNavigate()
   const [selectedTab,setSelectedTab] = useState('comment');
+  const {cartItems,setCartItems} = useOutletContext()
+  function handleAddToCart(e,id){
+    e.stopPropagation()
+    let product = AllProducts.find((p)=>p.id===id)
+    
+    setCartItems([...cartItems,{item:product,quantity:1}])
+    console.log(cartItems)
+  }
+
   const params = useParams()
   let product = AllProducts.find((p)=>p.id===parseInt(params.id))
 
@@ -72,7 +81,7 @@ const ProductDetails = () => {
               </select>
             </div>
 
-            <button className="bg-pink-500 text-white p-3 rounded-md w-full">
+            <button onClick={(e)=>handleAddToCart(e,product.id)} className="bg-pink-500 text-white p-3 rounded-md w-full">
               Add to Cart
             </button>
           </div>
