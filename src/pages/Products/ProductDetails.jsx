@@ -4,8 +4,11 @@ import HeartIcon from "./HeartIcon";
 import AllProducts from "../Admin/AllProducts";
 import { FaArrowLeft, FaStar } from "react-icons/fa";
 import { useParams,useNavigate, useOutletContext } from "react-router";
+import { Link } from "react-router-dom";
 
 const ProductDetails = () => {
+  const [loggedIn,setLoggedIn] = useState(false)
+
   const [reviews,setReviews] = useState([{userName:'Vinay Chavan',description:'Nice Product',rating:5}])
   const navigate = useNavigate()
   const [selectedTab,setSelectedTab] = useState('comment');
@@ -117,7 +120,16 @@ const ProductDetails = () => {
               Related Products
             </button>
           </div>
-          {selectedTab==='comment'&& <div className="w-3/5 bg-slate-900 box-border p-3 rounded-lg ml-8">
+          {!loggedIn&&selectedTab==='comment'&&<div className="w-3/5 bg-slate-900 box-border p-3 rounded-lg ml-8">
+            <div className="p-3 mb-4 bg-slate-800 flex justify-between">
+            
+              <p className="text-white font-semibold">Please Sign In to Write Review <Link to='/register' className="text-pink-600">Sign In</Link></p>
+            
+            
+          </div>
+          </div>}
+
+          {loggedIn&&selectedTab==='comment'&& <div className="w-3/5 bg-slate-900 box-border p-3 rounded-lg ml-8">
             <form>
               <label htmlFor="rating" className="text-white text-lg">
                 Rating

@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useState } from 'react'
 
 import HeartIcon from "./HeartIcon";
 import { useNavigate, useOutletContext } from "react-router";
@@ -15,14 +15,17 @@ const ProductCard = ({ product }) => {
     setCartItems([...cartItems,{item:product,quantity:1}])
     }
   }
+
   const handleFavorites = (id)=>{  
     let isFav = favItems.some((p)=>p.id===id)
     if(isFav){
       removeFavorites(id);
+     
     }
     else{
       let product = AllProducts.find((p)=>p.id===id)
       setFavItems([...favItems,product])
+      
     }
     
     console.log(favItems)

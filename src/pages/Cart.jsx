@@ -21,7 +21,6 @@ const Cart = () => {
 function handleDelete(e,id){
   let newCartItems = cartItems.filter((item)=>item.item.id !== id)
   setCartItems(newCartItems)
-  
 }
 
   function handleItemCount(e,id){

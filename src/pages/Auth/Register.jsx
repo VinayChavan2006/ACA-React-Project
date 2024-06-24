@@ -26,7 +26,7 @@ const Register = () => {
               <input type="password" id="cnf-password" placeholder="Confirm Password" />
             </div>
             
-              <button className="signup-button">Register</button>
+              <button onClick={(e)=>console.log(e)} className="signup-button">Register</button>
             
             <div className="new-user">
               Already Have an Account ?<Link className="Link" to="/login">Login</Link>

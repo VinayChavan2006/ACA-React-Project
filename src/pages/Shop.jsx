@@ -1,4 +1,4 @@
-import React, { useRef, useState } from "react";
+import React, { useEffect, useRef, useState } from "react";
 import { FaShoppingCart } from "react-icons/fa";
 import ProductCard from "./Products/ProductCard";
 import HeartIcon from "./Products/HeartIcon";
@@ -7,18 +7,59 @@ import { Link, useOutletContext } from "react-router-dom";
 const Shop = () => {
   const {cartItems,setCartItems,favItems,setFavItems} = useOutletContext()
   const [allProducts,setAllProducts] = useState(AllProducts)
-  // const [selectedCategories,setSelectedCategories] = useState([]);
-  function handleFilters(category){
+
+  function handleBrandFilters(e,brand){
+    let isSelected = e.target.checked;
+    if(isSelected){
+     let newProducts = AllProducts.filter((p)=>p.brand===brand)
+     setAllProducts(newProducts)
+    }
+   
+    if(allProducts.length===0){
+     setAllProducts(AllProducts)
+   }
+  }
+
+  // let PriceInput = useRef()
+  const [search,setSearch] = useState('')
+  function handleFilterByPrice(e){
+    // e.preventDefault()
+    // console.log(parseInt(PriceInput.current.value))
+    if(search!==''){
+      let priceFilteredProducts = AllProducts.filter((p)=>p.price.toString().includes(search))
+    console.log(priceFilteredProducts)
+    setAllProducts(priceFilteredProducts)
+    }
+  }
+  useEffect(handleFilterByPrice,[search])
+
+
+
+   const [selectedCategoryFilters,setSelectedCategoryFilters] = useState([])
+  function handleFilterByCategories(e,selectedCategory){
+    if(selectedCategoryFilters.includes(selectedCategory)){
+      let filters = selectedCategoryFilters.filter((cat)=>cat!==selectedCategory);
+    setSelectedCategoryFilters(filters);
+    }
+    else{
+      setSelectedCategoryFilters([...selectedCategoryFilters,selectedCategory])
+    }
     
-    // let isSelectedCategory = selectedCategories.some((p)=>p===category)
-    // if(!isSelectedCategory){
-    //   selectedCategories.push(category);
-    // let categoryItems = allProducts.filter((p)=>p.category===category)
-    // setAllProducts(categoryItems)}
-    // else{
-    //    setSelectedCategories(selectedCategories.filter((p)=>p!==category))
-    // }
-    console.log(category)
+  }
+  useEffect(()=>{
+    filterItems();
+  },[selectedCategoryFilters])
+
+  function filterItems(){
+    if(selectedCategoryFilters.length>0){
+      let tempItems = selectedCategoryFilters.map((selectedCategory)=>{
+        let temp = AllProducts.filter((item)=>item.category===selectedCategory)
+        return temp;
+      })
+      setAllProducts(tempItems.flat())
+    }else{
+      setAllProducts([...AllProducts])
+    }
   }
 
   function handleAddToCart(e,id){
@@ -84,8 +125,8 @@ const Shop = () => {
               <div className="mb-3">
                 <label className="flex items-center cursor-pointer bg-gray-800 p-2 rounded-md hover:bg-gray-700 hover:text-pink-500 transform hover:scale-x-105 transition-transform duration-200 ease-out">
                   <input
-                    onClick={()=>handleFilters(category)}
                     
+                    onClick={(e)=>handleFilterByCategories(e,category)}
                     type="checkbox"
                     
                     name={category}
@@ -105,6 +146,7 @@ const Shop = () => {
               <div className="mb-3">
                 <label className="flex items-center cursor-pointer bg-gray-800 p-2 rounded-md hover:bg-gray-700 hover:text-pink-500 transform hover:scale-x-105 transition-transform duration-200 ease-out">
                   <input
+                    onClick={(e)=>handleBrandFilters(e,brand)}
                     type="radio"
                     id={`${brand}`}
                     name="brand"
@@ -121,17 +163,21 @@ const Shop = () => {
             </h2>
 
             <input
-              type="number"
+              onChange={(e)=>{e.preventDefault()
+                setSearch(e.target.value)}}
+              // ref={PriceInput}
+              type="text"
               placeholder="Enter Price"
               className="rounded-md"
             />
             <br />
             <br />
-            <input
-              type="submit"
+            <button
+              onClick={handleFilterByPrice}
+              
               value="Reset Filters"
               className="w-full box-border p-3 rounded-md bg-pink-500 text-white"
-            />
+            >Reset Filters</button>
           </form>
         </div>
         <div className="w-3/4 ml-16">

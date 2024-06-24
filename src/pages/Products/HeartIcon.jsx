@@ -6,12 +6,7 @@ const HeartIcon = ({handleFavorites}) => {
   const handleClick = (e) => {
     e.stopPropagation()
     setIsFavorite(!isFavorite);
-    // if(isFavorite){
       handleFavorites();
-    
-    // else{
-      // removeFavorites();
-    // }
     
   };
   console.log("rendered HeartIcon");
