@@ -3,40 +3,37 @@ import { MdDelete } from "react-icons/md";
 import { Link, useLocation, useOutletContext } from "react-router-dom";
 const Cart = () => {
   let {cartItems,setCartItems} = useOutletContext();
-  const [cartCount,setCartCount] = useState(cartItems.length)
-  
+  const [cartCount,setCartCount] = useState(0)
   console.log(cartItems)
-  let total=0
-  const [Total,setTotal] = useState(total)
+  const [Total,setTotal] = useState(0)
   
-  for(let i=0;i<cartItems.length;i++){
-    total += cartItems[i].price ;
-    // setTotal(totPrice)
-  }
   useEffect(()=>{
-    setTotal(total)
-    return ()=>setTotal(0)
-  },[])
+    let newTotal = 0,items=0;
+    for(let i=0;i<cartItems.length;i++){
+      console.log(cartItems[i])
+      newTotal += cartItems[i].item.price * cartItems[i].quantity
+      items+=cartItems[i].quantity
+    }
+    
+    setTotal(newTotal);
+    setCartCount(items);
+  },[cartItems])
 function handleDelete(e,id){
-  let newCartItems = cartItems.filter((item)=>item.id !== id)
+  let newCartItems = cartItems.filter((item)=>item.item.id !== id)
   setCartItems(newCartItems)
   
 }
 
   function handleItemCount(e,id){
-    
-    let prod = cartItems.find((p)=>p.id===id)
-    let newItems = []
-    for(let i=0;i<e.target.value;i++){
-      newItems.push(prod)
-    }
-    for(let i=0;i<newItems.length;i++){
-      total += newItems[i].price ;
-      console.log(total)
-      setTotal(total)
-    }
-
-    setCartCount(cartItems.length+parseInt(e.target.value-1))
+    let prod = cartItems.find((p) => p.item.id === id);
+    prod.quantity = parseInt(e.target.value, 10);
+    let newTotal = 0,items=0;
+    cartItems.forEach((item) => {
+      newTotal += item.item.price * item.quantity;
+      items+=item.quantity;
+    });
+    setTotal(newTotal);
+    setCartCount(items)
   }
   const location = useLocation();
   console.log("rendered Cart");
@@ -84,23 +81,23 @@ function handleDelete(e,id){
               {cartItems.map((product) => (
                 <div className="w-full h-28 rounded-md flex gap-4 items-center justify-between bg-gray-700 box-border p-3">
                   <img
-                    src={product.imgUrl}
+                    src={product.item.imgUrl}
                     width={"120px"}
                     className="rounded-md"
                   />
                   <div className="flex flex-col">
                     <h3 className="text-lg font-bold text-white">
-                      {product.name}
+                      {product.item.name}
                     </h3>
-                    <p className="text-white">{product.brand}</p>
-                    <p className="text-white">${product.price}</p>
+                    <p className="text-white">{product.item.brand}</p>
+                    <p className="text-white">${product.item.price}</p>
                   </div>
-                  <select name="itemCount" className="bg-gray-900 rounded-md text-white" onChange={(e)=>handleItemCount(e,product.id)}>
+                  <select name="itemCount" className="bg-gray-900 rounded-md text-white" onChange={(e)=>handleItemCount(e,product.item.id)}>
                     {Array.from({ length: 10 }, (_, i) => (
                       <option value={i + 1}>{i + 1}</option>
                     ))}
                   </select>
-                  <MdDelete className="text-red-600 hover:cursor-pointer text-3xl" onClick={(e)=>handleDelete(e,product.id)} />
+                  <MdDelete className="text-red-600 hover:cursor-pointer text-3xl" onClick={(e)=>handleDelete(e,product.item.id)} />
                 </div>
               ))}
             </div>

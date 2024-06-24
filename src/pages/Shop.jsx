@@ -11,7 +11,7 @@ const Shop = () => {
     e.stopPropagation()
     let product = AllProducts.find((p)=>p.id===id)
     
-    setCartItems([...cartItems,product])
+    setCartItems([...cartItems,{item:product,quantity:1}])
     console.log(cartItems)
   }
   

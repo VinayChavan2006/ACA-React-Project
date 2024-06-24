@@ -10,7 +10,7 @@ const ProductCard = ({ product }) => {
   console.log("rendered ProductCard");
   function handleAddToCart(e){
     e.stopPropagation();
-    setCartItems([...cartItems,product])
+    setCartItems([...cartItems,{item:product,quantity:1}])
   }
   const handleFavorites = (id)=>{  
     let product = AllProducts.find((p)=>p.id===id)

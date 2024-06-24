@@ -49,7 +49,7 @@ const ProductCarousel = () => {
     e.stopPropagation()
     let product = products.find((p)=>p.id===id)
     
-    setCartItems([...cartItems,product])
+    setCartItems([...cartItems,{item:product,quantity:1}])
     console.log(cartItems)
   }
   
