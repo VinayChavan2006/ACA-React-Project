@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import React, { useState ,useEffect} from 'react'
 
 import HeartIcon from "./HeartIcon";
 import { useNavigate, useOutletContext } from "react-router";
@@ -16,16 +16,21 @@ const ProductCard = ({ product }) => {
     }
   }
 
+  const [isFavorite,setIsFavorite] = useState(false)
+  useEffect(() => {
+    const isFav = favItems.some((p) => p.id === product.id);
+    setIsFavorite(isFav);
+  }, [favItems, product.id]);
   const handleFavorites = (id)=>{  
     let isFav = favItems.some((p)=>p.id===id)
     if(isFav){
-      removeFavorites(id);
-     
+      setIsFavorite(false)
+      removeFavorites(id); 
     }
     else{
+      setIsFavorite(true)
       let product = AllProducts.find((p)=>p.id===id)
       setFavItems([...favItems,product])
-      
     }
     
     console.log(favItems)
@@ -46,7 +51,7 @@ const ProductCard = ({ product }) => {
             loading="lazy"
             style={{ borderRadius: "6px" }}
           />
-           <HeartIcon handleFavorites={()=>handleFavorites(product.id)}></HeartIcon>
+           <HeartIcon isFavorite={isFavorite} handleFavorites={()=>handleFavorites(product.id)}></HeartIcon>
           
           
           

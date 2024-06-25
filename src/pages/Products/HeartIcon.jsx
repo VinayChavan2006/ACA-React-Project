@@ -1,11 +1,11 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 
-const HeartIcon = ({handleFavorites}) => {
-  const [isFavorite, setIsFavorite] = useState(false);
+const HeartIcon = ({handleFavorites,isFavorite}) => {
+  // const [isFavorite, setIsFavorite] = useState(false);
 
   const handleClick = (e) => {
     e.stopPropagation()
-    setIsFavorite(!isFavorite);
+    // setIsFavorite(!isFavorite);
       handleFavorites();
     
   };

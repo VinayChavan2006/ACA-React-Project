@@ -1,4 +1,4 @@
-import React, { useRef, useState } from "react";
+import React, { useEffect, useRef, useState } from "react";
 import ProductCard from "./ProductCard";
 import HeartIcon from "./HeartIcon";
 import AllProducts from "../Admin/AllProducts";
@@ -23,12 +23,24 @@ const ProductDetails = () => {
     
     console.log(cartItems)
   }
+  
+
+  const params = useParams()
+  let product = AllProducts.find((p)=>p.id===parseInt(params.id))
+
+  const [isFavorite,setIsFavorite] = useState(false)
+  useEffect(() => {
+    const isFav = favItems.some((p) => p.id === product.id);
+    setIsFavorite(isFav);
+  }, [favItems, product.id]);
   const handleFavorites = (id)=>{  
     let isFav = favItems.some((p)=>p.id===id)
     if(isFav){
-      removeFavorites(id);
+      setIsFavorite(false)
+      removeFavorites(id); 
     }
     else{
+      setIsFavorite(true)
       let product = AllProducts.find((p)=>p.id===id)
       setFavItems([...favItems,product])
     }
@@ -40,8 +52,6 @@ const ProductDetails = () => {
     setFavItems(product)
   }
 
-  const params = useParams()
-  let product = AllProducts.find((p)=>p.id===parseInt(params.id))
 
   const rating = useRef()
   const comment = useRef()
@@ -69,7 +79,7 @@ const ProductDetails = () => {
                 loading="lazy"
                 style={{ borderRadius: "6px" }}
               />
-              <HeartIcon handleFavorites={()=>handleFavorites(product.id)}></HeartIcon>
+              <HeartIcon isFavorite={isFavorite} handleFavorites={()=>handleFavorites(product.id)}></HeartIcon>
             </div>
           </div>
           <div className="flex flex-col p-6 w-2/5 justify-between">

@@ -18,7 +18,7 @@ const Favorites = () => {
 
       {favItems.length!==0&&<div className="flex flex-col items-center" style={{width:"80%",height:"auto",backgroundColor:"#1f2937",borderRadius:"5px",boxSizing:"border-box",padding:"20px",marginTop:"60px"}}>
         <h2 className="text-4xl text-center font-bold text-white">Favorite Products</h2><br />
-          {favItems.map((product)=> <div
+          {favItems.map((product)=> <div key={product.id}
           className="font-sans bg-gray-900 rounded-md box-border p-3 ml-1 mb-5 shadow-md w-[450px] h-[460px]"
         >
           <ProductCard product={product}></ProductCard>
