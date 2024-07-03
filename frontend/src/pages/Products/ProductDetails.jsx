@@ -1,12 +1,14 @@
 import React, { useEffect, useRef, useState } from "react";
 import ProductCard from "./ProductCard";
 import HeartIcon from "./HeartIcon";
-import AllProducts from "../Admin/AllProducts";
+
 import { FaArrowLeft, FaStar } from "react-icons/fa";
 import { useParams,useNavigate, useOutletContext } from "react-router";
 import { Link } from "react-router-dom";
 
 const ProductDetails = () => {
+  const {AllProduct} = useOutletContext()
+  let AllProducts = AllProduct
   const [loggedIn,setLoggedIn] = useState(false)
 
   const [reviews,setReviews] = useState([{userName:'Vinay Chavan',description:'Nice Product',rating:5}])

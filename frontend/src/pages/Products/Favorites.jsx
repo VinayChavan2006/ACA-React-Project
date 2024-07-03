@@ -1,7 +1,7 @@
 import React from 'react'
 import { useLocation, useOutletContext } from 'react-router'
 import ProductCard from './ProductCard'
-import AllProducts from '../Admin/AllProducts'
+
 
 const Favorites = () => {
   // const favProducts = [{},{},{}]

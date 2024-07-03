@@ -1,14 +1,14 @@
 import React from 'react'
 
-import AllProducts from "./Admin/AllProducts";
+
 import ProductCard from "./Products/ProductCard";
 import ProductCarousel from "./Products/ProductCarousel";
-import { redirect, useNavigate } from "react-router";
+import { redirect, useNavigate, useOutletContext } from "react-router";
 
 function Home() {
   console.log('rendered Home')
-  
-  const HomeProducts = AllProducts.slice(0,6)
+  const {AllProduct} = useOutletContext()
+  const HomeProducts = AllProduct.slice(0,6)
   const navigate = useNavigate();
   return (
     <div className="w-screen min-h-screen bg-gray-950 flex flex-col items-center">

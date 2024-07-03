@@ -7,7 +7,7 @@ const PlaceOrder = () => {
   console.log("rendered PlaceOrder");
   return (
     <>
-      {/* <div className="w-screen min-h-screen bg-gray-950 flex flex-col items-center justify-between">
+      <div className="w-screen min-h-screen bg-gray-950 flex flex-col items-center justify-between">
         <div className="w-1/2 h-fit p-2 pl-16 pr-16 mt-4 flex justify-between items-center">
           <div className="flex flex-col items-center">
             <div className="w-8 h-8 rounded-full bg-green-500 text-white font-bold text-xl box-border flex items-center justify-center">
@@ -115,7 +115,7 @@ const PlaceOrder = () => {
             </button>
           </div>
         </div>
-      </div> */}
+      </div>
     </>
   );
 };

@@ -2,10 +2,11 @@ import React, { useState ,useEffect} from 'react'
 
 import HeartIcon from "./HeartIcon";
 import { useNavigate, useOutletContext } from "react-router";
-import AllProducts from "../Admin/AllProducts";
+
 const ProductCard = ({ product }) => {
-  const {cartItems,setCartItems} = useOutletContext()
+  const {cartItems,setCartItems,AllProduct} = useOutletContext()
   const {favItems,setFavItems} = useOutletContext()
+  let AllProducts = AllProduct
   const navigate = useNavigate();
   console.log("rendered ProductCard");
   function handleAddToCart(e){

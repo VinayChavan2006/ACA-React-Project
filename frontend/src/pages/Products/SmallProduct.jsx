@@ -1,9 +1,11 @@
 import React, { useEffect, useState } from 'react'
-import AllProducts from '../Admin/AllProducts';
+
 import { Link, useOutletContext } from 'react-router-dom';
 import HeartIcon from './HeartIcon';
 
 const SmallProduct = ({product}) => {
+  const {AllProduct} = useOutletContext()
+  let AllProducts  = AllProduct
   console.log('rendered SmallProduct')
   let {favItems,setFavItems,cartItems,setCartItems} = useOutletContext()
   function handleAddToCart(e){

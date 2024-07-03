@@ -2,14 +2,15 @@ import React, { useEffect, useRef, useState } from "react";
 import { FaShoppingCart } from "react-icons/fa";
 import ProductCard from "./Products/ProductCard";
 import HeartIcon from "./Products/HeartIcon";
-import  AllProducts  from "./Admin/AllProducts";
+
 import { Link, useOutletContext } from "react-router-dom";
 import SmallProduct from "./Products/SmallProduct";
+import categories from "./Admin/CategoryList";
 const Shop = () => {
-  const {cartItems,setCartItems,favItems,setFavItems} = useOutletContext()
-  const [allProducts,setAllProducts] = useState(AllProducts)
-
-
+  const {cartItems,setCartItems,favItems,setFavItems,categorylist,AllProduct} = useOutletContext()
+  const [allProducts,setAllProducts] = useState(AllProduct)
+  let categories = categorylist
+  let AllProducts = AllProduct
 
 
   function handleBrandFilters(e,brand){
@@ -70,16 +71,7 @@ const Shop = () => {
     }
   }
 
-  const categories = [
-    "Phone",
-    "Clothes",
-    "Laptop",
-    "Earpods",
-    "Drones",
-    "Shoes",
-    "Tablets",
-    "Cameras",
-  ];
+
   const brands = [
     "Apple",
     "Dell",
