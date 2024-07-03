@@ -81,7 +81,7 @@ const PlaceOrder = () => {
             <div className="flex justify-between flex-wrap p-8 bg-gray-900 rounded-lg shadow-lg">
               <ul className="text-lg text-white">
                 <li>
-                  <span className="font-semibold">Items: </span> {state.Total}
+                  <span className="font-semibold">Items: </span> {state.cartItems.length}
                 </li>
                 <li>
                   <span className="font-semibold">Shipping:</span> $ 0.00
