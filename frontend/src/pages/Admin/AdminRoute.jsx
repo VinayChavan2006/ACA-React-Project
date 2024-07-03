@@ -1,7 +1,7 @@
-import React from "react";
+import React, { useState } from "react";
 import { Outlet } from "react-router";
 const AdminRoute = () => {
-  const AllProduct = [{
+  const [AllProduct,setAllProduct] = useState([{
     id:1,
     name:"MacBook Pro",
     price:890,
@@ -105,12 +105,12 @@ const AdminRoute = () => {
     brand:'Canon',
     description:'Best device to capture special moments...',
     imgUrl:'https://i0.wp.com/digital-photography-school.com/wp-content/uploads/2017/02/Sigma-24mm-1.jpg?w=717&ssl=1',
-  }]
+  }])
   console.log("rendered AdminRopute");
   return (
     <>
       <div className="w-full min-h-full bg-slate-950">
-        <Outlet context={{AllProduct}}/>
+        <Outlet context={{AllProduct,setAllProduct}}/>
       </div>
     </>
   );

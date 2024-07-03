@@ -1,12 +1,17 @@
-import React from 'react'
+import React, { useState } from "react";
+import { useOutletContext } from "react-router";
 
 const OrderList = () => {
-  console.log('rendered OrderList')
+  const { AllProduct } = useOutletContext();
+  const [orderList, setOrderList] = useState(AllProduct);
+  console.log("rendered OrderList");
   return (
-    <div>
-      <h1>Order List</h1>
-    </div>
-  )
-}
+    <>
+      {orderList.map((product) => (
+        <h1>{product.name}</h1>
+      ))}
+    </>
+  );
+};
 
-export default OrderList
+export default OrderList;

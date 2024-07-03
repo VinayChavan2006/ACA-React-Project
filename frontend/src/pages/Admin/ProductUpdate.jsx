@@ -1,8 +1,9 @@
 import React, { useState } from "react";
 import { useParams } from "react-router";
-
+import { useOutletContext } from "react-router";
 const ProductUpdate = () => {
   const {id} = useParams()
+  const { AllProduct,setAllProduct } = useOutletContext();
   const [data,setData] = useState({
     name: '',
     price: '',
@@ -12,8 +13,7 @@ const ProductUpdate = () => {
     brand: ''
   })
   function handleUpdate(){
-    console.log({...data,id:id})
-     
+    setAllProduct({...data,id:id})
   }
   console.log("rendered ProductUpdate");
   return (

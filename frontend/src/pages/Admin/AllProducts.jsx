@@ -3,14 +3,15 @@ import { Navigate, useNavigate, useOutletContext } from "react-router";
 
 const AllProducts = () => {
   const navigate = useNavigate()
-  const { AllProduct } = useOutletContext();
-  const [ProductList, setProductList] = useState(AllProduct);
+  const { AllProduct,setAllProduct } = useOutletContext();
+  console.log(AllProduct)
+  
   console.log("rendered AllProducts");
   return (
     <>
       <div className="ml-20 w-full">
-        <h1>AllProducts ({ProductList.length})</h1>
-        {ProductList.map((product) => (
+        <h1>AllProducts ({AllProduct.length})</h1>
+        {AllProduct.map((product) => (
           <div className="w-3/4 h-[200px] bg-slate-800 rounded-md p-3 mt-6 mb-6 flex items-center">
             <div className="w-2/5 h-full ">
               <img src={product.imgUrl} alt="" className="w-full h-full object-cover" />
