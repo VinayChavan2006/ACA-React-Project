@@ -11,6 +11,7 @@ import Profile from "./pages/User/Profile";
 import Loader from './components/Loader'
 import Shipping from './pages/Orders/Shipping';
 import { useState } from "react";
+import PlaceOrder from './pages/Orders/PlaceOrder';
 
 const App = () => {
   const [cartItems,setCartItems] = useState([])
@@ -22,7 +23,8 @@ const App = () => {
       {/* <Loader></Loader> */}
       {/* <ProductDetails></ProductDetails> */}
       {/* <Profile></Profile> */}
-      {/* <Shipping></Shipping> */}
+      {/* <Shipping></Shipping>
+      <PlaceOrder></PlaceOrder> */}
       <main className="w-full h-screen">
         <Outlet context={{cartItems,setCartItems,favItems,setFavItems}}/>
       </main>

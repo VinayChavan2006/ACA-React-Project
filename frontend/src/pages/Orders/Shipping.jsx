@@ -1,6 +1,20 @@
-import React from "react";
+import React, { useState } from "react";
 import { MdDone } from "react-icons/md";
+import { useLocation, useNavigate } from "react-router";
 const Shipping = () => {
+  const navigate = useNavigate()
+  const {state} = useLocation()
+  // console.log(state)
+
+  const [addressData,setAddressData] = useState({
+    address:'',
+    city:'',
+    postalCode:'',
+    country:''
+  })
+  const handleChange = (e)=>{
+    setAddressData({...addressData,[e.target.name]:e.target.value})
+  }
   console.log("rendered Shipping");
   return (
     <>
@@ -34,6 +48,7 @@ const Shipping = () => {
             <label htmlFor="address">
               Address <br />
               <input
+                onChange={handleChange}
                 className="w-full rounded-md bg-slate-500 h-12 text-white placeholder-white"
                 type="text"
                 name="address"
@@ -44,6 +59,7 @@ const Shipping = () => {
             <label htmlFor="city">
               City <br />
               <input
+                onChange={handleChange}
                 className="w-full rounded-md bg-slate-500 h-12 text-white placeholder-white"
                 type="text"
                 name="city"
@@ -54,6 +70,7 @@ const Shipping = () => {
             <label htmlFor="postalCode">
               Postal Code <br />
               <input
+                onChange={handleChange}
                 className="w-full rounded-md bg-slate-500 h-12 text-white placeholder-white"
                 type="text"
                 name="postalCode"
@@ -64,6 +81,7 @@ const Shipping = () => {
             <label htmlFor="Country">
               Country <br />
               <input
+                onChange={handleChange}
                 className="w-full rounded-md bg-slate-500 h-12 text-white placeholder-white"
                 type="text"
                 name="country"
@@ -76,7 +94,7 @@ const Shipping = () => {
               <input type="radio" name="payment" id="payment" defaultChecked />
               PayPal or Credit Card
             </label>
-            <button className="w-full rounded-md p-3 bg-pink-500 hover:bg-pink-600 transition-all font-semibold">
+            <button onClick={()=>navigate('/placeorder',{state:{...state,...addressData}})} className="w-full rounded-md p-3 bg-pink-500 hover:bg-pink-600 transition-all font-semibold">
               Continue
             </button>
           </div>

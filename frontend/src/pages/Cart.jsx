@@ -129,7 +129,7 @@ const Cart = () => {
                   Total: ${Total}
                 </h2>
                 <br />
-                <button className="bg-pink-600 w-full h-10 rounded-md text-white" onClick={()=>navigate('/shipping')}>
+                <button className="bg-pink-600 w-full h-10 rounded-md text-white" onClick={()=>navigate('/shipping',{state:{cartItems,Total}})}> 
                   Proceed to Checkout
                 </button>
               </div>

@@ -61,7 +61,7 @@ const Shop = () => {
   function filterItems(){
     if(selectedCategoryFilters.length>0){
       let tempItems = selectedCategoryFilters.map((selectedCategory)=>{
-        let temp = allProducts.filter((item)=>item.category===selectedCategory)
+        let temp = AllProducts.filter((item)=>item.category===selectedCategory)
         return temp;
       })
       setAllProducts(tempItems.flat())
