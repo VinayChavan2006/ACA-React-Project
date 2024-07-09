@@ -2,6 +2,7 @@ import React, { useEffect, useState } from "react";
 import { FaRegStar, FaShoppingCart,FaArrowCircleLeft, FaArrowCircleRight } from "react-icons/fa";
 import { FaStar } from "react-icons/fa6";
 import { useNavigate, useOutletContext } from "react-router";
+import { toast } from "react-toastify";
 const ProductCarousel = () => {
   const products = [
     {
@@ -52,7 +53,7 @@ const ProductCarousel = () => {
     if(!isInCart){
       setCartItems([...cartItems,{item:product,quantity:1}])
     }
-    
+    toast.success('Item added to Cart')
     console.log(cartItems)
   }
   

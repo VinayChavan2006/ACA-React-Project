@@ -1,8 +1,17 @@
 import React, { useState } from "react";
 import { Link } from "react-router-dom";
 import "./Login.css";
+import { toast } from "react-toastify";
+import Loader from '../../components/Loader'
+import { useNavigate } from "react-router-dom";
+import { useLoginMutation } from "../../redux/api/usersApiSlice";
 import axios from 'axios'
+import { setCredentials } from "../../redux/features/auth/authSlice"
+import { useDispatch } from "react-redux";
 const Login = () => {
+  const dispatch = useDispatch()
+  const navigate = useNavigate()
+  const [login, { isLoading }] = useLoginMutation()
   const [formData, setFormData] = useState({
     email: "",
     password: "",
@@ -14,12 +23,19 @@ const Login = () => {
     console.log(e);
     e.preventDefault();
     try {
-      const response = await axios.post(
-        "http://localhost:5000/login",
-        formData
-      );
+      console.log('Fetching ...')
+      const response = await login(formData)
+      console.log(response.data,!response.data)
+      if(!response.data){
+        throw new Error('Invalid Credentials')
+      }
+      console.log('fetched')
+      dispatch(setCredentials({...response}))
+      toast.success('Logged In Successfully')
+        navigate('/')
       console.log(response.data);
     } catch (error) {
+      toast.error(error.message);
       console.log(error);
     }
   };

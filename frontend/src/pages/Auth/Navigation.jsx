@@ -7,12 +7,28 @@ import {
   FaHeart,
   FaUser,
 } from "react-icons/fa";
-import { IoMdLogIn } from "react-icons/io";
+import { IoMdLogIn, IoMdLogOut } from "react-icons/io";
 import "./Navigation.css";
+import { useDispatch, useSelector } from "react-redux";
+import { logout } from "../../redux/features/auth/authSlice";
+import { useLogoutMutation } from "../../redux/api/usersApiSlice";
 
-const Navigation = ({ cartItems,favItems }) => {
+const Navigation = ({ cartItems, favItems }) => {
+  const dispatch = useDispatch();
+  const [logoutApiCall] = useLogoutMutation();
+  const logoutHandler = async () => {
+    try {
+      await logoutApiCall();
+      dispatch(logout());
+      navigate("/login");
+    } catch (error) {
+      console.error(error);
+    }
+  };
+  const { userInfo } = useSelector((state) => state.auth);
+  console.log(userInfo);
   const [selectedTab, setSelectedTab] = useState("home");
-  
+
   const navigate = useNavigate();
   console.log("rendered Navigation");
   return (
@@ -75,23 +91,25 @@ const Navigation = ({ cartItems,favItems }) => {
             id="login"
             className={selectedTab === "login" && "text-pink-600"}
             onClick={() => {
+              userInfo ? logoutHandler() : setSelectedTab("login");
               navigate("/login");
-              setSelectedTab("login");
             }}
           >
-            <IoMdLogIn />
-            <p>Log In</p>
+            {userInfo ? <IoMdLogOut /> : <IoMdLogIn />}
+            <p>Log {userInfo ? "Out" : "In"}</p>
           </div>
           <div
             id="user"
             className={selectedTab === "user" && "text-pink-600"}
             onClick={() => {
-              navigate("/register");
+              userInfo ? navigate("/profile",{state:userInfo}) : navigate("/register");
               setSelectedTab("user");
             }}
           >
             <FaUser />
-            <p>User</p>
+            <p className="font-bold text-3xl">
+              {userInfo ? "Profile" : "User"}
+            </p>
           </div>
         </div>
       </div>

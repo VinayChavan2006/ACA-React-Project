@@ -2,6 +2,7 @@ import React, { useEffect, useState } from 'react'
 
 import { Link, useOutletContext } from 'react-router-dom';
 import HeartIcon from './HeartIcon';
+import { toast } from 'react-toastify';
 
 const SmallProduct = ({product}) => {
   const {AllProduct} = useOutletContext()
@@ -14,6 +15,7 @@ const SmallProduct = ({product}) => {
     if(!isInCart){
     setCartItems([...cartItems,{item:product,quantity:1}])
     }
+    toast.success("Item added to Cart")
   }
 
   const [isFavorite,setIsFavorite] = useState(false)

@@ -2,7 +2,7 @@ import React, { useState ,useEffect} from 'react'
 
 import HeartIcon from "./HeartIcon";
 import { useNavigate, useOutletContext } from "react-router";
-
+import {toast} from 'react-toastify'
 const ProductCard = ({ product }) => {
   const {cartItems,setCartItems,AllProduct} = useOutletContext()
   const {favItems,setFavItems} = useOutletContext()
@@ -15,6 +15,7 @@ const ProductCard = ({ product }) => {
     if(!isInCart){
     setCartItems([...cartItems,{item:product,quantity:1}])
     }
+    toast.success('Item added to Cart')
   }
 
   const [isFavorite,setIsFavorite] = useState(false)

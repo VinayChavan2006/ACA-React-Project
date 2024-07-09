@@ -1,42 +1,23 @@
 import React from "react";
 import { MdDone } from "react-icons/md";
 import { useLocation } from "react-router";
+import ProgressSteps from "../../components/ProgressSteps";
 const PlaceOrder = () => {
   const { state } = useLocation();
   console.log(state);
+  
   console.log("rendered PlaceOrder");
   return (
     <>
       <div className="w-screen min-h-screen bg-gray-950 flex flex-col items-center justify-between">
-        <div className="w-1/2 h-fit p-2 pl-16 pr-16 mt-4 flex justify-between items-center">
-          <div className="flex flex-col items-center">
-            <div className="w-8 h-8 rounded-full bg-green-500 text-white font-bold text-xl box-border flex items-center justify-center">
-              <MdDone />
-            </div>
-            <p className="text-green-500 text-sm">Login</p>
-          </div>
-          <div className="w-[60px] bg-green-400 h-1 mb-5"></div>
-          <div className="flex flex-col items-center">
-            <div className="w-8 h-8 rounded-full bg-green-500 text-white font-bold text-xl p-1 box-border flex items-center justify-center">
-              <MdDone />
-            </div>
-            <p className="text-green-500 text-sm">Shipping</p>
-          </div>
-          <div className="w-[60px] bg-green-400 h-1 mb-5"></div>
-          <div className="flex flex-col items-center">
-            <div className="w-8 h-8 rounded-full bg-green-500 text-white font-bold text-xl p-1 box-border flex items-center justify-center">
-              <MdDone />
-            </div>
-            <p className="text-white text-sm">Summary</p>
-          </div>
-        </div>
+        <ProgressSteps step3='true' step2='true'/>
         <div className="container mx-auto mt-8">
           <div className="bg-gray-800 rounded-lg p-6 mt-4">
             <h1 className="text-2xl font-bold text-center text-white mb-6">
               Order Summary
             </h1>
-            {state.cartItems.length === 0 ? (
-              <h1>Cart is Empty!</h1>
+            { !state ? (
+              <h1 className="text-center">Cart is Empty!</h1>
             ) : (
               <table className="w-full bg-gray-900 rounded-lg overflow-hidden border-separate">
                 <thead className="bg-gray-700 text-white">
@@ -81,25 +62,25 @@ const PlaceOrder = () => {
             <div className="flex justify-between flex-wrap p-8 bg-gray-900 rounded-lg shadow-lg">
               <ul className="text-lg text-white">
                 <li>
-                  <span className="font-semibold">Items: </span> {state.cartItems.length}
+                  <span className="font-semibold">Items: </span> {state?.cartItems?.length}
                 </li>
                 <li>
                   <span className="font-semibold">Shipping:</span> $ 0.00
                 </li>
                 <li>
                   <span className="font-semibold">Tax:</span> ${" "}
-                  {(Number(state.Total) * 15) / 100}
+                  {(Number(state?.Total) * 15) / 100}
                 </li>
                 <li>
                   <span className="font-semibold">Total:</span> ${" "}
-                  {state.Total + (state.Total * 15) / 100}
+                  {state?.Total + (state?.Total * 15) / 100}
                 </li>
               </ul>
               <div className="text-white">
                 <h2 className="text-2xl font-semibold mb-4">Shipping</h2>
                 <p>
-                  <strong>Address:</strong> {state.address}, {state.city}{" "}
-                  {state.postalCode}, {state.country}
+                  <strong>Address:</strong> {state?.address}, {state?.city}{" "}
+                  {state?.postalCode}, {state?.country}
                 </p>
               </div>
               <div className="text-white">

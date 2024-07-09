@@ -1,6 +1,20 @@
 import React, { useState } from "react";
-import { Outlet } from "react-router";
+import { useSelector } from "react-redux";
+import { Outlet, Navigate } from "react-router";
+import { redirect } from "react-router";
 const AdminRoute = () => {
+  
+  const {userInfo} = useSelector(state=>state.auth)
+  const categorylist = [
+    "Phone",
+    "Clothes",
+    "Laptop",
+    "Earpods",
+    "Drones",
+    "Shoes",
+    "Tablets",
+    "Cameras",
+  ]
   const [AllProduct,setAllProduct] = useState([{
     id:1,
     name:"MacBook Pro",
@@ -107,13 +121,14 @@ const AdminRoute = () => {
     imgUrl:'https://i0.wp.com/digital-photography-school.com/wp-content/uploads/2017/02/Sigma-24mm-1.jpg?w=717&ssl=1',
   }])
   console.log("rendered AdminRopute");
+  console.log(userInfo,userInfo.data.isAdmin)
   return (
     <>
       <div className="w-full min-h-full bg-slate-950">
-        <Outlet context={{AllProduct,setAllProduct}}/>
+        { userInfo&&userInfo.data.isAdmin?<Outlet context={{AllProduct,setAllProduct,categorylist}}/>:<Navigate to="/" replace />}
       </div>
     </>
-  );
+  ) 
 };
 
 export default AdminRoute;

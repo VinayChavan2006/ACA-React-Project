@@ -1,9 +1,10 @@
 import React, { useRef, useState } from "react";
 import { RxCross2 } from "react-icons/rx";
 import { useOutletContext } from "react-router";
+import CategoryForm from "../../components/CategoryForm";
 const CategoryList = () => {
-  const {categoryList} = useOutletContext()
-   const [categories, setCategories] = useState(categoryList);
+  const {categorylist} = useOutletContext()
+   const [categories, setCategories] = useState(categorylist);
   let category = useRef()
   function handleSubmit(e){
     e.preventDefault()
@@ -19,16 +20,7 @@ const CategoryList = () => {
       <div className="w-full h-full flex justify-center">
         <div className="w-4/5 mt-8 h-fit box-border p-8 bg-slate-900 rounded-md">
           <h1 className="text-center mb-8">Manage Categories</h1>
-          <div className="w-full flex flex-col gap-3">
-            <input
-              ref={category}
-              className="w-full rounded-md bg-slate-500 placeholder-slate-300 text-white p-2"
-              type="text"
-              name="category"
-              placeholder="Write Category Name"
-            />
-            <button type="submit" onClick={(e)=>handleSubmit(e)} className="bg-pink-500 hover:bg-pink-600 text-white w-20 rounded-md p-2">Create</button>
-          </div>
+          <CategoryForm/>
           <br />
           <hr />
           <div className="flex flex-wrap w-full mt-2 gap-10">
