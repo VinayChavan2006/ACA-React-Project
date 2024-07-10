@@ -1,6 +1,13 @@
 # Group 12 ACA WebDev Project
 
 
+### Members
+- Vinay Chavan (231155) - complete Project
+- Rishabh (230859) - No contribution
+- Harisen (230439) - No contribution
+
+### Description
+
 This is a E-commerce website with frontend built using React and also integrated with backend using Node,Express and mongoose(MongoDB).It also includes JWT Authentication
 
 ### Technology,Frameworks and Libraries used

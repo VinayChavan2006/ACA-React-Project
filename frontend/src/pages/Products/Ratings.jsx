@@ -1,12 +1,14 @@
-import React from 'react'
+import React from "react";
 
 const Ratings = () => {
-  console.log('rendered Ratings')
+  console.log("rendered Ratings");
   return (
-    <div>
-      <h1>Ratings</h1>
+    <div className="flex gap-1">
+      {Array.from({ length: 5 }, (_, i) => (
+        <FaStar style={{ color: "yellow" }} />
+      ))}
     </div>
-  )
-}
+  );
+};
 
-export default Ratings
+export default Ratings;

@@ -108,7 +108,7 @@ const Navigation = ({ cartItems, favItems }) => {
           >
             <FaUser />
             <p className="font-bold text-3xl">
-              {userInfo ? "Profile" : "User"}
+              {userInfo ? "Profile" : "Register"}
             </p>
           </div>
         </div>
