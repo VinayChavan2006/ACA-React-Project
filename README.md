@@ -1,8 +1,10 @@
 # Group 12 ACA WebDev Project
 
 
+## E-commerce application
+
 ### Members
-- Vinay Chavan (231155) - complete Project
+- Vinay Chavan (231155) - complete Project 
 - Rishabh (230859) - No contribution
 - Harisen (230439) - No contribution
 
